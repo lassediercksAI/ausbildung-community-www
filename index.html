@@ -92,6 +92,42 @@
 
     .divider { width: 1px; height: 48px; background: var(--border); align-self: center; }
 
+    /* WAITLIST FORM */
+    .waitlist {
+      width: 100%; max-width: 440px;
+    }
+    .waitlist-label {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem;
+      display: block;
+    }
+    .waitlist-row {
+      display: flex; gap: 0.5rem;
+    }
+    .waitlist-input {
+      flex: 1; padding: 0.75rem 1rem;
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: 8px; color: var(--text);
+      font-family: var(--font); font-size: 0.95rem;
+      outline: none; transition: border-color 0.15s;
+    }
+    .waitlist-input::placeholder { color: var(--text-soft); }
+    .waitlist-input:focus { border-color: var(--accent); }
+    .waitlist-btn {
+      padding: 0.75rem 1.25rem; border-radius: 8px;
+      background: var(--accent); color: #fff;
+      font-family: var(--font); font-size: 0.95rem; font-weight: 700;
+      border: none; cursor: pointer; white-space: nowrap;
+      transition: opacity 0.15s, transform 0.15s;
+    }
+    .waitlist-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+    .waitlist-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .waitlist-msg {
+      margin-top: 0.6rem; font-size: 0.83rem; font-weight: 600; min-height: 1.2em;
+    }
+    .waitlist-msg.ok { color: var(--green); }
+    .waitlist-msg.err { color: #f87171; }
+
     .cta-row { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; }
     .btn {
       display: inline-block; text-decoration: none;
@@ -166,9 +202,14 @@
     </div>
   </div>
 
-  <div class="cta-row">
-    <a href="#wie" class="btn btn-primary">Wie funktioniert's?</a>
-  </div>
+  <form class="waitlist" id="waitlist-form" novalidate>
+    <span class="waitlist-label">Get on the waitlist</span>
+    <div class="waitlist-row">
+      <input class="waitlist-input" type="email" name="email" placeholder="deine@email.de" required autocomplete="email">
+      <button class="waitlist-btn" type="submit">Anmelden →</button>
+    </div>
+    <p class="waitlist-msg" id="waitlist-msg" aria-live="polite"></p>
+  </form>
 </main>
 
 <section class="how" id="wie">
@@ -195,5 +236,41 @@
   <a href="/verhaltenskodex.html">Verhaltenskodex</a>
 </footer>
 
+<script>
+  // Configure: replace with your listmonk URL and list UUID
+  const LISTMONK_URL = 'https://lists.exaptation.company/subscription/form';
+  const LIST_UUID   = 'FILL_IN_LIST_UUID';
+
+  const form = document.getElementById('waitlist-form');
+  const msg  = document.getElementById('waitlist-msg');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = form.email.value.trim();
+    if (!email) return;
+    const btn = form.querySelector('button');
+    btn.disabled = true;
+    btn.textContent = '…';
+    msg.className = 'waitlist-msg';
+    msg.textContent = '';
+    try {
+      const body = new URLSearchParams({ email, 'l[]': LIST_UUID });
+      const res = await fetch(LISTMONK_URL, { method: 'POST', body });
+      if (res.ok || res.status === 200) {
+        msg.className = 'waitlist-msg ok';
+        msg.textContent = 'Du bist auf der Liste! Wir melden uns.';
+        form.reset();
+      } else {
+        throw new Error(res.status);
+      }
+    } catch {
+      msg.className = 'waitlist-msg err';
+      msg.textContent = 'Etwas hat nicht geklappt – versuch es nochmal.';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Anmelden →';
+    }
+  });
+</script>
 </body>
 </html>
