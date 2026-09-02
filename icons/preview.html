@@ -2,48 +2,76 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>Industry Icons Preview</title>
+<title>Industry Icons – ausbildung.community</title>
 <style>
   body { background: #0f172a; font-family: system-ui, sans-serif; padding: 2rem; }
-  h1 { color: #f1f5f9; margin-bottom: 2rem; font-size: 1.5rem; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 1.5rem; }
+  h1 { color: #f1f5f9; margin-bottom: 0.5rem; font-size: 1.5rem; }
+  p { color: #94a3b8; font-size: 0.85rem; margin-bottom: 2rem; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1.5rem; }
   .item { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
-  .item img { width: 80px; height: 80px; border-radius: 16px; }
+  .item img { width: 96px; height: 96px; border-radius: 20px; }
   .item span { color: #94a3b8; font-size: 0.7rem; text-align: center; line-height: 1.3; }
+  .dl-row { display: flex; gap: 0.4rem; margin-top: 0.1rem; }
+  .dl {
+    display: inline-block; text-decoration: none;
+    padding: 0.3rem 0.65rem; border-radius: 6px;
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.03em;
+    transition: opacity 0.15s;
+  }
+  .dl:hover { opacity: 0.75; }
+  .dl-svg { background: rgba(92,54,216,0.25); color: #a78bfa; border: 1px solid rgba(92,54,216,0.4); }
+  .dl-png { background: rgba(66,231,144,0.15); color: #42e790; border: 1px solid rgba(66,231,144,0.35); }
 </style>
 </head>
 <body>
-<h1>ausbildung.community — 29 Industry Icons</h1>
-<div class="grid">
-  <div class="item"><img src="IT-u-Informatik.svg"><span>IT & Informatik</span></div>
-  <div class="item"><img src="Gesundheit-u-Pflege.svg"><span>Gesundheit & Pflege</span></div>
-  <div class="item"><img src="Landwirtschaft-u-Natur.svg"><span>Landwirtschaft & Natur</span></div>
-  <div class="item"><img src="Elektrotechnik-u-Elektronik.svg"><span>Elektrotechnik & Elektronik</span></div>
-  <div class="item"><img src="Metalltechnik-u-Maschinenbau.svg"><span>Metalltechnik & Maschinenbau</span></div>
-  <div class="item"><img src="Bau-u-Tiefbau.svg"><span>Bau & Tiefbau</span></div>
-  <div class="item"><img src="Hochbau-u-Ausbau.svg"><span>Hochbau & Ausbau</span></div>
-  <div class="item"><img src="Logistik-u-Transport.svg"><span>Logistik & Transport</span></div>
-  <div class="item"><img src="Handel-u-Kaufmaennisch.svg"><span>Handel & Kaufmännisch</span></div>
-  <div class="item"><img src="Gastronomie-u-Hotel.svg"><span>Gastronomie & Hotel</span></div>
-  <div class="item"><img src="Soziales-u-Paedagogik.svg"><span>Soziales & Pädagogik</span></div>
-  <div class="item"><img src="Buero-u-Verwaltung.svg"><span>Büro & Verwaltung</span></div>
-  <div class="item"><img src="Fahrzeugtechnik.svg"><span>Fahrzeugtechnik</span></div>
-  <div class="item"><img src="Chemie-Pharma-u-Labor.svg"><span>Chemie, Pharma & Labor</span></div>
-  <div class="item"><img src="Medien-u-Marketing.svg"><span>Medien & Marketing</span></div>
-  <div class="item"><img src="Holz-u-Moebel.svg"><span>Holz & Möbel</span></div>
-  <div class="item"><img src="Lebensmittelhandwerk.svg"><span>Lebensmittelhandwerk</span></div>
-  <div class="item"><img src="Maler-u-Raumausstattung.svg"><span>Maler & Raumausstattung</span></div>
-  <div class="item"><img src="Textil-u-Bekleidung.svg"><span>Textil & Bekleidung</span></div>
-  <div class="item"><img src="Koerperpflege-u-Beauty.svg"><span>Körperpflege & Beauty</span></div>
-  <div class="item"><img src="Umwelt-u-Entsorgung.svg"><span>Umwelt & Entsorgung</span></div>
-  <div class="item"><img src="Druck-u-Papier.svg"><span>Druck & Papier</span></div>
-  <div class="item"><img src="Sicherheit-u-Service.svg"><span>Sicherheit & Service</span></div>
-  <div class="item"><img src="Technisches-Zeichnen-u-Vermessung.svg"><span>Technisches Zeichnen & Vermessung</span></div>
-  <div class="item"><img src="Schmuck-Optik-u-Uhren.svg"><span>Schmuck, Optik & Uhren</span></div>
-  <div class="item"><img src="Musikinstrumentenbau.svg"><span>Musikinstrumentenbau</span></div>
-  <div class="item"><img src="Glas-u-Keramik.svg"><span>Glas & Keramik</span></div>
-  <div class="item"><img src="Leder-u-Schuh.svg"><span>Leder & Schuh</span></div>
-  <div class="item"><img src="Bergbau-u-Rohstoffe.svg"><span>Bergbau & Rohstoffe</span></div>
-</div>
+<h1>ausbildung.community — 29 Branchen-Icons</h1>
+<p>Brand colors: <code style="color:#a78bfa">#5c36d8</code> · <code style="color:#42e790">#42e790</code> · Tabler Icons (MIT) · 512×512</p>
+<div class="grid" id="grid"></div>
+<script>
+const sectors = [
+  ["IT-u-Informatik",               "IT & Informatik"],
+  ["Gesundheit-u-Pflege",           "Gesundheit & Pflege"],
+  ["Landwirtschaft-u-Natur",        "Landwirtschaft & Natur"],
+  ["Elektrotechnik-u-Elektronik",   "Elektrotechnik & Elektronik"],
+  ["Metalltechnik-u-Maschinenbau",  "Metalltechnik & Maschinenbau"],
+  ["Bau-u-Tiefbau",                 "Bau & Tiefbau"],
+  ["Hochbau-u-Ausbau",              "Hochbau & Ausbau"],
+  ["Logistik-u-Transport",          "Logistik & Transport"],
+  ["Handel-u-Kaufmaennisch",        "Handel & Kaufmännisch"],
+  ["Gastronomie-u-Hotel",           "Gastronomie & Hotel"],
+  ["Soziales-u-Paedagogik",         "Soziales & Pädagogik"],
+  ["Buero-u-Verwaltung",            "Büro & Verwaltung"],
+  ["Fahrzeugtechnik",               "Fahrzeugtechnik"],
+  ["Chemie-Pharma-u-Labor",         "Chemie, Pharma & Labor"],
+  ["Medien-u-Marketing",            "Medien & Marketing"],
+  ["Holz-u-Moebel",                 "Holz & Möbel"],
+  ["Lebensmittelhandwerk",          "Lebensmittelhandwerk"],
+  ["Maler-u-Raumausstattung",       "Maler & Raumausstattung"],
+  ["Textil-u-Bekleidung",           "Textil & Bekleidung"],
+  ["Koerperpflege-u-Beauty",        "Körperpflege & Beauty"],
+  ["Umwelt-u-Entsorgung",           "Umwelt & Entsorgung"],
+  ["Druck-u-Papier",                "Druck & Papier"],
+  ["Sicherheit-u-Service",          "Sicherheit & Service"],
+  ["Technisches-Zeichnen-u-Vermessung", "Technisches Zeichnen & Vermessung"],
+  ["Schmuck-Optik-u-Uhren",         "Schmuck, Optik & Uhren"],
+  ["Musikinstrumentenbau",          "Musikinstrumentenbau"],
+  ["Glas-u-Keramik",                "Glas & Keramik"],
+  ["Leder-u-Schuh",                 "Leder & Schuh"],
+  ["Bergbau-u-Rohstoffe",           "Bergbau & Rohstoffe"],
+];
+const grid = document.getElementById('grid');
+sectors.forEach(([slug, label]) => {
+  grid.insertAdjacentHTML('beforeend', `
+    <div class="item">
+      <img src="${slug}.svg" alt="${label}">
+      <span>${label}</span>
+      <div class="dl-row">
+        <a class="dl dl-svg" href="${slug}.svg" download="${slug}.svg">SVG</a>
+        <a class="dl dl-png" href="${slug}.png" download="${slug}.png">PNG</a>
+      </div>
+    </div>
+  `);
+});
+</script>
 </body>
 </html>
