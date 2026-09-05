@@ -3,274 +3,438 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ausbildung.community – Die Community für Azubis in Deutschland</title>
+  <title>ausbildung.community – die community für auszubildende</title>
   <meta name="description" content="Für jede Branche eine eigene Community. Für jeden Ausbildungsberuf ein eigener Kanal. Kostenlos, offen, selbst gehostet.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500&family=Barlow+Condensed:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --bg: #0f172a;
-      --surface: #1e293b;
-      --border: #334155;
+      --surface: #161f35;
+      --purple: #5c36d8;
+      --green: #42e790;
       --text: #f1f5f9;
       --text-soft: #94a3b8;
-      --accent: #3b82f6;
-      --accent-glow: rgba(59,130,246,0.15);
-      --green: #22c55e;
-      --font: 'Inter', system-ui, sans-serif;
+      --border: rgba(255,255,255,0.07);
+      --fd: 'Barlow Condensed', sans-serif;
+      --fb: 'Barlow', system-ui, sans-serif;
     }
     html { scroll-behavior: smooth; }
-    body {
-      font-family: var(--font);
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex; flex-direction: column;
-    }
+    body { background: var(--bg); color: var(--text); }
+    ::selection { background: rgba(66,231,144,0.25); color: var(--text); }
+    :focus-visible { outline: 2px solid var(--green); outline-offset: 2px; border-radius: 0; }
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--purple); }
 
-    /* BANNER */
-    .top-banner {
-      background: #f59e0b;
-      color: #1e293b;
+    /* ── STATUS ────────────────────── */
+    .status-bar {
+      background: var(--purple);
+      color: rgba(255,255,255,0.92);
       text-align: center;
-      padding: 0.6rem 1rem;
-      font-size: 0.85rem;
+      padding: 0.45rem 1rem;
+      font-family: var(--fd);
+      font-size: 0.6rem;
       font-weight: 600;
-      letter-spacing: 0.02em;
-    }
-
-    /* HERO */
-    .hero {
-      flex: 1;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center;
-      padding: 5rem 1.5rem 3rem;
-      position: relative; overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(59,130,246,0.12), transparent);
-      pointer-events: none;
-    }
-    .badge {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      background: var(--accent-glow); border: 1px solid rgba(59,130,246,0.3);
-      color: var(--accent); border-radius: 999px;
-      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em;
-      padding: 0.3rem 0.85rem; margin-bottom: 1.75rem;
+      letter-spacing: 0.24em;
       text-transform: uppercase;
     }
-    .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green);
-      box-shadow: 0 0 6px var(--green); animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
 
+    /* ── NAV ───────────────────────── */
+    nav {
+      display: flex;
+      align-items: center;
+      padding: 1.15rem 6vw;
+      border-bottom: 1px solid var(--border);
+    }
+    .wordmark {
+      font-family: var(--fd);
+      font-weight: 800;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      text-transform: lowercase;
+      color: var(--text);
+    }
+
+    /* ── HERO ──────────────────────── */
+    .hero {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      min-height: calc(100vh - 2.1rem - 3rem);
+    }
+    .hero-text {
+      padding: 5rem 2rem 5rem 6vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
     h1 {
-      font-size: clamp(2rem, 6vw, 4rem);
-      font-weight: 900; line-height: 1.1;
-      letter-spacing: -0.03em;
-      margin-bottom: 1.25rem;
+      font-family: var(--fd);
+      font-weight: 800;
+      font-size: clamp(3.5rem, 9vw, 7.5rem);
+      line-height: 0.92;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 2rem;
     }
-    h1 em { font-style: normal; color: var(--accent); }
-
-    .sub {
-      font-size: clamp(1rem, 2.5vw, 1.2rem);
-      color: var(--text-soft); font-weight: 500; line-height: 1.6;
-      max-width: 560px; margin-bottom: 2.5rem;
+    h1 em { font-style: normal; color: var(--green); }
+    .hero-sub {
+      font-family: var(--fb);
+      font-weight: 500;
+      font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+      letter-spacing: 0.02em;
+      color: var(--text-soft);
+      line-height: 1.7;
     }
+    /* designed void — absence as intentional as presence */
+    .hero-void { background: var(--bg); }
 
-    .stats {
-      display: flex; gap: 2.5rem; flex-wrap: wrap; justify-content: center;
-      margin-bottom: 3rem;
+    /* ── RULES ─────────────────────── */
+    .rule { height: 4px; background: var(--purple); }
+    .rule-thin { height: 1px; background: var(--border); }
+
+    /* ── FORM BAND ─────────────────── */
+    .form-band {
+      background: var(--purple);
+      padding: 2.75rem 6vw;
     }
-    .stat { text-align: center; }
-    .stat-num { font-size: 2rem; font-weight: 900; color: var(--text); display: block; }
-    .stat-label { font-size: 0.8rem; font-weight: 600; color: var(--text-soft); margin-top: 0.2rem; }
-
-    .divider { width: 1px; height: 48px; background: var(--border); align-self: center; }
-
-    /* WAITLIST FORM */
-    .waitlist {
-      width: 100%; max-width: 440px;
-    }
-    .waitlist-label {
-      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem;
+    .form-label {
       display: block;
+      font-family: var(--fd);
+      font-weight: 600;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.88);
+      margin-bottom: 0.9rem;
     }
-    .waitlist-row {
-      display: flex; gap: 0.5rem;
+    .form-row { display: flex; max-width: 480px; }
+    .form-input {
+      flex: 1;
+      padding: 0.9rem 1.1rem;
+      background: rgba(0,0,0,0.25);
+      border: 1.5px solid rgba(255,255,255,0.18);
+      border-right: none;
+      color: #fff;
+      font-family: var(--fb);
+      font-size: 0.95rem;
+      outline: none;
+      border-radius: 0;
+      caret-color: var(--green);
+      transition: border-color 0.15s;
     }
-    .waitlist-input {
-      flex: 1; padding: 0.75rem 1rem;
-      background: var(--surface); border: 1.5px solid var(--border);
-      border-radius: 8px; color: var(--text);
-      font-family: var(--font); font-size: 0.95rem;
-      outline: none; transition: border-color 0.15s;
+    .form-input::placeholder { color: rgba(255,255,255,0.32); }
+    .form-input:focus { border-color: rgba(255,255,255,0.48); }
+    .form-btn {
+      padding: 0.9rem 1.5rem;
+      background: var(--green);
+      color: #08101f;
+      font-family: var(--fd);
+      font-size: 0.88rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      border-radius: 0;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: opacity 0.15s;
     }
-    .waitlist-input::placeholder { color: var(--text-soft); }
-    .waitlist-input:focus { border-color: var(--accent); }
-    .waitlist-btn {
-      padding: 0.75rem 1.25rem; border-radius: 8px;
-      background: var(--accent); color: #fff;
-      font-family: var(--font); font-size: 0.95rem; font-weight: 700;
-      border: none; cursor: pointer; white-space: nowrap;
-      transition: opacity 0.15s, transform 0.15s;
+    .form-btn:hover { opacity: 0.85; }
+    .form-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .form-msg {
+      margin-top: 0.65rem;
+      font-family: var(--fb);
+      font-size: 0.83rem;
+      font-weight: 500;
+      min-height: 1.2em;
     }
-    .waitlist-btn:hover { opacity: 0.85; transform: translateY(-1px); }
-    .waitlist-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-    .waitlist-msg {
-      margin-top: 0.6rem; font-size: 0.83rem; font-weight: 600; min-height: 1.2em;
-    }
-    .waitlist-msg.ok { color: var(--green); }
-    .waitlist-msg.err { color: #f87171; }
+    .form-msg.ok { color: #c8fce4; }
+    .form-msg.err { color: #fca5a5; }
 
-    .cta-row { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; }
-    .btn {
-      display: inline-block; text-decoration: none;
-      padding: 0.8rem 1.75rem; border-radius: 8px;
-      font-family: var(--font); font-size: 0.95rem; font-weight: 700;
-      transition: opacity 0.15s, transform 0.15s;
+    /* ── ICON STRIP ────────────────── */
+    .icon-strip {
+      overflow: hidden;
+      padding: 2.25rem 0;
+      background: var(--surface);
     }
-    .btn:hover { opacity: 0.85; transform: translateY(-1px); }
-    .btn-primary { background: var(--accent); color: #fff; }
-    .btn-ghost {
-      background: transparent; color: var(--text-soft);
-      border: 1.5px solid var(--border);
+    .icon-track {
+      display: flex;
+      gap: 2.5rem;
+      width: max-content;
+      animation: marquee 60s linear infinite;
     }
-    .btn-ghost:hover { color: var(--text); border-color: var(--text-soft); }
-
-    /* HOW IT WORKS */
-    .how {
-      max-width: 860px; margin: 0 auto;
-      padding: 3rem 1.5rem 5rem;
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5rem;
+    .icon-track:hover { animation-play-state: paused; }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+    .icon-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.55rem;
+      flex-shrink: 0;
     }
-    .step {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 12px; padding: 1.5rem;
-    }
-    .step-num {
-      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem;
-    }
-    .step h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; }
-    .step p { font-size: 0.85rem; color: var(--text-soft); line-height: 1.6; font-weight: 500; }
-
-    /* FOOTER */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 1.25rem 1.5rem;
+    .icon-item img { width: 52px; height: 52px; border-radius: 10px; display: block; }
+    .icon-item span {
+      font-family: var(--fd);
+      font-size: 0.5rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      max-width: 72px;
       text-align: center;
-      font-size: 0.78rem; color: var(--text-soft); font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    footer a { color: var(--accent); text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
+
+    /* ── PROOF ─────────────────────── */
+    .proof-band {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 1rem;
+      padding: 4rem 6vw;
+      align-items: start;
+    }
+    .proof-num {
+      font-family: var(--fd);
+      font-weight: 800;
+      font-size: 5.5rem;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--green);
+    }
+    .proof-content h2 {
+      font-family: var(--fd);
+      font-weight: 800;
+      font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+      line-height: 1;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 0.9rem;
+    }
+    .proof-content p {
+      font-family: var(--fb);
+      font-size: 1rem;
+      color: var(--text-soft);
+      line-height: 1.7;
+      max-width: 460px;
+    }
+
+    /* ── FOOTER ────────────────────── */
+    footer {
+      border-top: 4px solid var(--purple);
+      padding: 1.5rem 6vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-mark {
+      font-family: var(--fd);
+      font-weight: 800;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: lowercase;
+      color: var(--text-soft);
+    }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a {
+      font-family: var(--fd);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .footer-links a:hover { color: var(--text); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .icon-track { animation: none; }
+    }
+
+    /* ── RESPONSIVE ────────────────── */
+    @media (max-width: 720px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-void { display: none; }
+      .hero-text { padding: 3rem 1.5rem; }
+      .proof-band { grid-template-columns: 64px 1fr; padding: 2.5rem 1.5rem; }
+      .proof-num { font-size: 3.5rem; }
+      nav, .form-band, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .footer-links { gap: 1.25rem; }
+    }
   </style>
 </head>
 <body>
 
-<div class="top-banner">Dieses Projekt befindet sich im Aufbau</div>
+<!--
+THESIS: A community that looks as certain of itself as the movements that built the rights Azubis inherit. Bold, ink-black, collective — the gradient-glow dark SaaS hero is refused.
+OWN-WORLD: #0f172a ink-black ground. #5c36d8 purple as full color-field (status, rules, form band). #42e790 green for the em word and step numbers. Barlow Condensed 800 for all display; Barlow 400 for body. One face — hierarchy from weight, tracking, case. No glass, no shadow, no rounded cards.
+STORY: Visitor arrives → reads the collective claim at poster scale → sees 29 sector icons as proof of breadth → signs up → understands the mechanism.
+FIRST VIEWPORT: 60/40 grid. Left: two-line headline in Barlow Condensed 800 at 7.5rem, AUSZUBILDENDE in green. Right: designed void. Below: 4px purple rule → full-width purple form band.
+FORM: Gewerkschafts-Plakat tradition, seed 8a6d68c2. Raises: void as designed as content (moon-shadow bazaar); single face / weight-tracking hierarchy (emission line rail); dark→lighter reading progression (cyclorama).
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md.
+-->
 
-<main class="hero">
+<header>
+<div class="status-bar">ausbildung.community · Beta · Im Aufbau</div>
 
-  <h1>Die Community<br>für <em>Azubis</em> in Deutschland.</h1>
+<nav>
+  <span class="wordmark">ausbildung.community</span>
+</nav>
+</header>
 
-  <p class="sub">
-    Für jede Branche eine eigene Community.<br>
-    Für jeden Ausbildungsberuf ein eigener Kanal.
-  </p>
-
-  <div class="stats">
-    <div class="stat">
-      <span class="stat-num">29</span>
-      <span class="stat-label">Branchen</span>
-    </div>
-    <div class="divider"></div>
-    <div class="stat">
-      <span class="stat-num">390</span>
-      <span class="stat-label">Ausbildungsberufe</span>
-    </div>
-    <div class="divider"></div>
-    <div class="stat">
-      <span class="stat-num">100%</span>
-      <span class="stat-label">Kostenlos</span>
-    </div>
+<main>
+<section class="hero">
+  <div class="hero-text">
+    <h1>die community<br>für <em>auszubildende</em>.</h1>
+    <p class="hero-sub">Für jede Branche eine Community.<br>Für jeden Beruf ein eigener Kanal.</p>
   </div>
-
-  <form class="waitlist" id="waitlist-form" novalidate>
-    <span class="waitlist-label">Get on the waitlist</span>
-    <div class="waitlist-row">
-      <input class="waitlist-input" type="email" name="email" placeholder="deine@email.de" required autocomplete="email">
-      <button class="waitlist-btn" type="submit">Anmelden →</button>
-    </div>
-    <p class="waitlist-msg" id="waitlist-msg" aria-live="polite"></p>
-  </form>
-</main>
-
-<section class="how" id="wie">
-  <div class="step">
-    <div class="step-num">01</div>
-    <h3>Finde deine Branche</h3>
-    <p>29 eigene Communities – von IT & Informatik über Gesundheit & Pflege bis hin zu Landwirtschaft & Natur.</p>
-  </div>
-  <div class="step">
-    <div class="step-num">02</div>
-    <h3>Tritt deinem Beruf bei</h3>
-    <p>Jede Community hat eigene Kanäle pro Ausbildungsberuf. Finde Gleichgesinnte, die genau dasselbe lernen.</p>
-  </div>
-  <div class="step">
-    <div class="step-num">03</div>
-    <h3>Lern gemeinsam</h3>
-    <p>Fragen stellen, Tipps teilen, Prüfungsangst überwinden – offen, kostenlos, ohne Algorithmus.</p>
-  </div>
+  <div class="hero-void" aria-hidden="true"></div>
 </section>
 
+<div class="rule" role="separator"></div>
+
+<section class="form-band">
+  <label for="waitlist-email" class="form-label">Auf die Warteliste</label>
+  <form id="waitlist-form" novalidate>
+    <div class="form-row">
+      <input id="waitlist-email" class="form-input" type="email" name="email"
+             placeholder="deine@email.de" required autocomplete="email">
+      <button class="form-btn" type="submit">Anmelden</button>
+    </div>
+    <p class="form-msg" id="form-msg" aria-live="polite"></p>
+  </form>
+</section>
+
+<div class="rule" role="separator"></div>
+
+<section class="icon-strip" aria-label="29 Branchen im Überblick">
+  <div class="icon-track" id="icon-track"></div>
+</section>
+
+<div class="rule-thin" role="separator"></div>
+
+<section aria-label="So funktioniert's">
+  <div class="proof-band">
+    <div class="proof-num" aria-hidden="true">01</div>
+    <div class="proof-content">
+      <h2>Branche wählen</h2>
+      <p>29 eigene Communities — von IT & Informatik über Gesundheit & Pflege bis Landwirtschaft & Natur. Jede Branche hat ihre eigene Welt.</p>
+    </div>
+  </div>
+  <div class="rule-thin" role="separator"></div>
+  <div class="proof-band">
+    <div class="proof-num" aria-hidden="true">02</div>
+    <div class="proof-content">
+      <h2>Beruf beitreten</h2>
+      <p>Jede Community hat eigene Kanäle pro Ausbildungsberuf. 390+ Berufe. Finde die Leute, die genau dasselbe lernen wie du.</p>
+    </div>
+  </div>
+  <div class="rule-thin" role="separator"></div>
+  <div class="proof-band">
+    <div class="proof-num" aria-hidden="true">03</div>
+    <div class="proof-content">
+      <h2>Gemeinsam lernen</h2>
+      <p>Fragen stellen, Tipps teilen, Prüfungsangst überwinden. Offen, kostenlos und ohne Algorithmus.</p>
+    </div>
+  </div>
+</section>
+</main>
+
 <footer>
-  <a href="/impressum.html">Impressum</a> ·
-  <a href="/datenschutz.html">Datenschutz</a> ·
-  <a href="/verhaltenskodex.html">Verhaltenskodex</a>
+  <span class="footer-mark">ausbildung.community</span>
+  <nav class="footer-links" aria-label="Rechtliches">
+    <a href="/impressum.html">Impressum</a>
+    <a href="/datenschutz.html">Datenschutz</a>
+    <a href="/verhaltenskodex.html">Verhaltenskodex</a>
+  </nav>
 </footer>
 
 <script>
-  // Configure: replace with your listmonk URL and list UUID
-  const LISTMONK_URL = 'https://lists.exaptation.company/subscription/form';
-  const LIST_UUID   = 'FILL_IN_LIST_UUID';
+const SECTORS = [
+  ["IT-u-Informatik",               "IT & Informatik"],
+  ["Gesundheit-u-Pflege",           "Gesundheit"],
+  ["Landwirtschaft-u-Natur",        "Landwirtschaft"],
+  ["Elektrotechnik-u-Elektronik",   "Elektrotechnik"],
+  ["Metalltechnik-u-Maschinenbau",  "Metalltechnik"],
+  ["Bau-u-Tiefbau",                 "Bau & Tiefbau"],
+  ["Hochbau-u-Ausbau",              "Hochbau"],
+  ["Logistik-u-Transport",          "Logistik"],
+  ["Handel-u-Kaufmaennisch",        "Handel"],
+  ["Gastronomie-u-Hotel",           "Gastronomie"],
+  ["Soziales-u-Paedagogik",         "Soziales"],
+  ["Buero-u-Verwaltung",            "Büro"],
+  ["Fahrzeugtechnik",               "Fahrzeuge"],
+  ["Chemie-Pharma-u-Labor",         "Chemie"],
+  ["Medien-u-Marketing",            "Medien"],
+  ["Holz-u-Moebel",                 "Holz & Möbel"],
+  ["Lebensmittelhandwerk",          "Lebensmittel"],
+  ["Maler-u-Raumausstattung",       "Maler"],
+  ["Textil-u-Bekleidung",           "Textil"],
+  ["Koerperpflege-u-Beauty",        "Beauty"],
+  ["Umwelt-u-Entsorgung",           "Umwelt"],
+  ["Druck-u-Papier",                "Druck"],
+  ["Sicherheit-u-Service",          "Sicherheit"],
+  ["Technisches-Zeichnen-u-Vermessung", "Vermessung"],
+  ["Schmuck-Optik-u-Uhren",         "Schmuck"],
+  ["Musikinstrumentenbau",          "Musik"],
+  ["Glas-u-Keramik",                "Glas"],
+  ["Leder-u-Schuh",                 "Leder & Schuh"],
+  ["Bergbau-u-Rohstoffe",           "Bergbau"],
+];
 
+(function buildIconStrip() {
+  const track = document.getElementById('icon-track');
+  const html = SECTORS.map(([slug, label]) =>
+    `<div class="icon-item"><img src="/icons/${slug}.svg" alt="${label}" width="52" height="52" loading="lazy"><span>${label}</span></div>`
+  ).join('');
+  const dupe = `<div aria-hidden="true" style="display:contents">${html}</div>`;
+  track.innerHTML = html + dupe; // duplicate for seamless loop; second set hidden from AT
+})();
+
+(function initForm() {
+  const LISTMONK_URL = 'https://lists.ausbildung.community/subscription/form';
+  const LIST_UUID = '30b60d5b-3a2c-4588-82ac-0740348c9004';
   const form = document.getElementById('waitlist-form');
-  const msg  = document.getElementById('waitlist-msg');
+  const msg = document.getElementById('form-msg');
 
-  form.addEventListener('submit', async (e) => {
+  form.addEventListener('submit', async e => {
     e.preventDefault();
     const email = form.email.value.trim();
     if (!email) return;
     const btn = form.querySelector('button');
     btn.disabled = true;
     btn.textContent = '…';
-    msg.className = 'waitlist-msg';
+    msg.className = 'form-msg';
     msg.textContent = '';
     try {
       const body = new URLSearchParams({ email, 'l[]': LIST_UUID });
       const res = await fetch(LISTMONK_URL, { method: 'POST', body });
       if (res.ok || res.status === 200) {
-        msg.className = 'waitlist-msg ok';
-        msg.textContent = 'Du bist auf der Liste! Wir melden uns.';
+        msg.className = 'form-msg ok';
+        msg.textContent = 'Du bist auf der Liste. Wir melden uns.';
         form.reset();
       } else {
         throw new Error(res.status);
       }
     } catch {
-      msg.className = 'waitlist-msg err';
-      msg.textContent = 'Etwas hat nicht geklappt – versuch es nochmal.';
+      msg.className = 'form-msg err';
+      msg.textContent = 'Etwas hat nicht geklappt — versuch es nochmal.';
     } finally {
       btn.disabled = false;
-      btn.textContent = 'Anmelden →';
+      btn.textContent = 'Anmelden';
     }
   });
+})();
 </script>
 </body>
 </html>
